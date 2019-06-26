@@ -1,5 +1,8 @@
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -7,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import java.sql.SQLException;
 
 public class MedicoFrame extends JPanel {
 	
@@ -43,6 +48,18 @@ public class MedicoFrame extends JPanel {
 		 f.add(adicionar);
 		 
 		 f.setVisible(true);
+		 
+		 
+        adicionar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	  {
+    			try {
+					new Medico(nomeMedico.getText(), String.valueOf(sexoMedico.getSelectedItem()), String.valueOf(titulacaoMedico.getSelectedItem()), Integer.valueOf(sala.getText()));
+    			} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+        	  }
+        });
 		 
 	}
 }

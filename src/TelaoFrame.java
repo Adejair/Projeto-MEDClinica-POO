@@ -23,14 +23,7 @@ public class TelaoFrame extends JPanel {
 		 f.setSize(700, 100);
 
 		Border borderTop = BorderFactory.createLineBorder(Color.blue);
-		 
-	    JLabel salaLabelTop = new JLabel("Sala", JLabel.CENTER);
-	    salaLabelTop.setVerticalTextPosition(JLabel.BOTTOM);
-	    salaLabelTop.setHorizontalTextPosition(JLabel.CENTER);
-	    salaLabelTop.setBorder(borderTop);
-	    salaLabelTop.setForeground(Color.blue);
-	    salaLabelTop.setFont(new Font(salaLabelTop.getFont().getName(), salaLabelTop.getFont().getStyle(), 15));
-	    
+
 	    
 	    JLabel medicoLabelTop = new JLabel("Medico", JLabel.CENTER);
 	    medicoLabelTop.setVerticalTextPosition(JLabel.BOTTOM);
@@ -50,32 +43,22 @@ public class TelaoFrame extends JPanel {
 		    
 	    JLabel labelSala = new JLabel("INICIALIZANDO COMPONENTE....");
 
-	    Border border = BorderFactory.createLineBorder(Color.BLACK);
-	    labelSala.setBorder(border);
-	    labelSala.setPreferredSize(new Dimension(150, 100));
-	    
-	    labelSala.setText(salaAtendimento);
-	    
-	    labelSala.setHorizontalAlignment(JLabel.CENTER);
-	    labelSala.setVerticalAlignment(JLabel.CENTER);
 	    
 	    JLabel medicoLabel = new JLabel(medico, JLabel.CENTER);
 	    medicoLabel.setVerticalTextPosition(JLabel.BOTTOM);
 	    medicoLabel.setHorizontalTextPosition(JLabel.CENTER);
-	    medicoLabel.setBorder(border);
+	    medicoLabel.setBorder(borderTop);
 
 	    JLabel pacienteLabel = new JLabel(paciente, JLabel.CENTER);
 	    pacienteLabel.setVerticalTextPosition(JLabel.BOTTOM);
 	    pacienteLabel.setHorizontalTextPosition(JLabel.CENTER);
-	    pacienteLabel.setBorder(border);
+	    pacienteLabel.setBorder(borderTop);
 
-	    DesenharLinha linha = new DesenharLinha();
-	   
-	    f.add(salaLabelTop);
+
 	    f.add(medicoLabelTop);
 	    f.add(pacienteLabelTop);
 	    
-	    f.add(labelSala);
+
 	    f.add(medicoLabel);
 	    f.add(pacienteLabel);
 	    

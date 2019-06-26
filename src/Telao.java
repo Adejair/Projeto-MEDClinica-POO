@@ -27,10 +27,7 @@ public class Telao {
 	private Firestore db;
 	
 	Telao(String sala, String nomeMedico, String nomePaciente) {
-		this.db = FirestoreClient.getFirestore();
-		this.docRef = db.collection("telao").document("tela_atual");
-		
-		Map<String, Object> data = new HashMap<>();
+
 		this.desenharTelao(nomePaciente, nomeMedico, sala);
 	}
 

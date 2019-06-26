@@ -1,3 +1,9 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Medico extends Pessoa {
@@ -19,12 +25,57 @@ public class Medico extends Pessoa {
 	}
 	
 	
-	Medico(String nomeMedico, String sexo, String titulacaoMedico, int salaMedico) {
+	Medico(String nomeMedico, String sexo, String titulacaoMedico, int salaMedico) throws SQLException {
 		super(nomeMedico, sexo);
 	
 		this.setNomeMedico(nomeMedico);
 		this.setSexo(sexo);
+		
+		String sql = "INSERT INTO MEDICOS(NOME, SEXO, TITULO, SALA) VALUES (?, ?, ?, ?)";
+		
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:banco.db"); 
+				PreparedStatement pstmt = connection.prepareStatement(sql);) {			
+			pstmt.setString(1, nomeMedico);
+			pstmt.setString(2, sexo);
+			pstmt.setString(3, titulacaoMedico);
+			pstmt.setInt(4, salaMedico);
+	
+			pstmt.executeUpdate();
+			System.out.println("inserido!");
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
 
+	}
+	
+	
+	public ArrayList<String> carregarMedicos() throws SQLException {
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:banco.db")) 
+		{
+			
+            PreparedStatement stmt = connection.prepareStatement("select * from MEDICOS");
+            ResultSet resultSet = stmt.executeQuery();
+
+            ArrayList<String> medicos = new ArrayList<String>();
+            
+            
+            while (resultSet.next()) {
+           
+                String nome = resultSet.getString("NOME");
+                String titulo = resultSet.getString("TITULO");
+                Integer sala = resultSet.getInt("SALA");
+
+                System.out.println("NOME - " + nome + "  ESPECIALIDADE " + titulo + " - SALA " + sala);
+                medicos.add(nome + "(" + titulo + ")" + "(" + sala + ")");
+        
+            }
+            
+			System.out.println("inserido!");
+			 return medicos;
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 
 

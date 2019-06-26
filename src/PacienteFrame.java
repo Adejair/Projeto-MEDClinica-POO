@@ -1,5 +1,9 @@
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,6 +14,8 @@ import javax.swing.JTextField;
 
 public class PacienteFrame extends JPanel {
 	
+	private ArrayList<String> medicos;
+	
 	private JTextField nomePaciente; 
 	private JComboBox sexoPaciente; 
 	private JComboBox medico; 
@@ -17,10 +23,13 @@ public class PacienteFrame extends JPanel {
 	
 	private JButton adicionar;
 	
-	private final String[] medicoNomes = { "Medico Ninguem"};
+	private final String[] medicoNomes = { "NENHUM MEDICO DISPONIVEL"};
 	private final String[] sexo = { "Masculino", "Feminino"};
 
 	PacienteFrame() {
+		loadInfo();
+		
+		
 		JFrame f = new JFrame("Paciente Adicionar");
 		 f.setSize(500, 100);
 		 f.setLayout(new FlowLayout());
@@ -28,8 +37,9 @@ public class PacienteFrame extends JPanel {
 		 
 		 nomePaciente = new JTextField("Nome do paciente", 10);
 		 
-		 medico = new JComboBox(medicoNomes);
+		 medico = new JComboBox((medicos.toArray().length > 0 ?  medicos.toArray() : medicoNomes ) );
 		 sexoPaciente = new JComboBox(sexo);
+		 
 		 
 		 
 		 adicionar = new JButton("ADICIONAR");
@@ -41,5 +51,30 @@ public class PacienteFrame extends JPanel {
 		 
 		 f.setVisible(true);
 		 
+		 
+		 
+		 
+        adicionar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	  {
+    			try {
+					new Paciente(nomePaciente.getText(), String.valueOf(sexoPaciente.getSelectedItem()), String.valueOf(medico.getSelectedItem()));
+					loadInfo();
+    			} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+        	  }
+        });
+        
+	}
+	
+	
+	public void loadInfo() {
+		try {
+			
+			medicos = new Medico().carregarMedicos();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

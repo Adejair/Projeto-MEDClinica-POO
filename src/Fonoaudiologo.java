@@ -17,7 +17,7 @@ public class Fonoaudiologo extends Medico implements MedicoInterface{
 	}
 	
 	private void fazerFonoaudiologia() { 
-		// TODO: Registrar no banco de dados..
+		
 	}
 
 }
